@@ -63,7 +63,7 @@ namespace my_books.Repository
         public Book GetBook(int id)
         {
             Console.WriteLine(id);
-            return _context.Books.Where(b => b.Id == id).FirstOrDefault();
+            return _context.Books.Where(b => b.Id == id).Include(e=>e.Publisher).FirstOrDefault();
         }
 
         public BookWithAuthorDto GetBookBookWithAuthorDto(int id)

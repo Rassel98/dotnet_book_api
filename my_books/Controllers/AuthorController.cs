@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using my_books.Dto;
@@ -10,6 +11,7 @@ namespace my_books.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class AuthorController : ControllerBase
     {
         private readonly IAuthorRepository _authorRepository;
@@ -35,6 +37,7 @@ namespace my_books.Controllers
         [Route("all_authors/{id}")]
         [ProducesResponseType(200, Type = typeof(AuthorDto2))]
         [ProducesResponseType(400)]
+        [Authorize]
         public IActionResult GetBooks(int id)
         {
             if (!ModelState.IsValid)

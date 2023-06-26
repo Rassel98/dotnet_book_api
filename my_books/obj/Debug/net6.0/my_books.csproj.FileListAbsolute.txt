@@ -87,3 +87,4 @@ D:\dotnet\my_books\my_books\obj\Debug\net6.0\refint\my_books.dll
 D:\dotnet\my_books\my_books\obj\Debug\net6.0\my_books.pdb
 D:\dotnet\my_books\my_books\obj\Debug\net6.0\my_books.genruntimeconfig.cache
 D:\dotnet\my_books\my_books\obj\Debug\net6.0\ref\my_books.dll
+D:\dotnet\my_books\my_books\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
