@@ -7,6 +7,7 @@ namespace my_books.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string? Password { get; set; }
         public string? Description { get; set; }
         public ICollection<Book_Author> Book_Authors { get; set; }
     }

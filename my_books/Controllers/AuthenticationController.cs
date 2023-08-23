@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using my_books.Dto;
 using my_books.Interfaces;
+using my_books.Models;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace my_books.Controllers
@@ -18,11 +19,12 @@ namespace my_books.Controllers
         }
         [HttpPost]
         [Route("author_login")]
-        public IActionResult Login([FromBody] AuthorDto author)
+        public IActionResult Login([FromBody] LoginAuthors author)
         {
             if (!ModelState.IsValid) return BadRequest();
-            if (!_authenticationRepository.EixisAuthor(author.Name)) return BadRequest("user not found");
-            var token=_authenticationRepository.LoginAuthor(author.Name);
+            if (!_authenticationRepository.EixisAuthor(author.UserName)) return BadRequest("user not found");
+            var token = _authenticationRepository.LoginAuthor(author);
+            if (token == "") return BadRequest(" username or password not match");
             return Ok(new { Token = token, Message = "Success" });
         }
     }

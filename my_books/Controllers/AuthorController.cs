@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using my_books.Common;
 using my_books.Dto;
 using my_books.Interfaces;
 using my_books.Models;
@@ -54,6 +55,7 @@ namespace my_books.Controllers
             });
         }
 
+        [Authorize]
         [HttpGet]
         [Route("all_authorswithbooktitle/{id}")]
         [ProducesResponseType(200, Type = typeof(AuthorWithBookDto))]
@@ -165,9 +167,12 @@ namespace my_books.Controllers
             if (!_authorRepository.EixisAuthors(id))
                 return StatusCode(404, new { message = "Author not found" });
             var auth= _authorRepository.GetAuthor(id);
+            var pass = CommonMethod.ConvertToEncrypt(author.Password);
             auth.Id = id;
-            auth.Description = author.Description;
-            auth.Name = author.Name;
+            auth.Description = author.Description??auth.Description;
+            auth.Password = author.Password==null?auth.Password:pass;
+            auth.Name = author.Name==null ? auth.Name:author.Name;
+            auth.Book_Authors = auth.Book_Authors;
             if (!_authorRepository.UpdateAuthor(auth))
                 return StatusCode(500, new
                 {

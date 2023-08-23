@@ -4,7 +4,7 @@ namespace my_books.Interfaces
 {
     public interface IAuthenticationRepository
     {
-        string LoginAuthor(string username);
+        string LoginAuthor(LoginAuthors loginAuthors);
         bool EixisAuthor(string username);
     }
 }

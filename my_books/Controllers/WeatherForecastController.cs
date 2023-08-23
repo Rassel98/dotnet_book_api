@@ -21,7 +21,6 @@ namespace my_books.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        [Authorize]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using my_books.Common;
 using my_books.Data;
 using my_books.Interfaces;
 using my_books.Models;
@@ -24,18 +25,21 @@ namespace my_books.Repository
             return _context.Authors.Any(e => e.Name == username);
         }
 
-        public string LoginAuthor(string username)
+        public string LoginAuthor(LoginAuthors loginAuthors)
         {
-            var _user=_context.Authors.FirstOrDefault(e=>e.Name==username);
-            var  token = GenerateToken(_user);
+            var _user=_context.Authors.FirstOrDefault(
+                e=>e.Name== loginAuthors.UserName 
+                && e.Password == CommonMethod.ConvertToEncrypt(loginAuthors.Password));
+            if (_user == null) return "";
+            var  token = GenerateToken(_user.Name);
             return token;
         }
 
-        private String GenerateToken(Author users)
+        private String GenerateToken(string name)
         {
             var claim = new[]
             {
-                new Claim( JwtRegisteredClaimNames.Sub,users.Name),
+                new Claim( JwtRegisteredClaimNames.Sub,name),
 
                 new Claim( JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
               
